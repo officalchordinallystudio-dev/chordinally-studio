@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chordinally Studio</title>
 
-<!-- GOOGLE FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -24,15 +24,26 @@ body{
 
 /* HEADER */
 header{
+  position:relative;
   text-align:center;
   padding:50px 20px 30px;
-  animation: fadeDown 1s ease;
 }
 header h1{
   font-family:'Dancing Script', cursive;
   color:var(--red);
   font-size:52px;
-  letter-spacing:2px;
+}
+
+/* CURRENCY */
+.currency{
+  position:absolute;
+  top:20px;
+  right:20px;
+}
+.currency select{
+  padding:6px 10px;
+  border-radius:20px;
+  border:1px solid var(--red);
 }
 
 /* NAV */
@@ -43,72 +54,53 @@ header h1{
   gap:22px;
   margin-bottom:50px;
 }
-
 .nav button{
-  width:280px;
+  width:300px;
   background:linear-gradient(135deg,var(--red),#e63950);
   color:white;
   border:none;
-  padding:20px;
-  border-radius:40px;
+  padding:22px;
+  border-radius:45px;
   cursor:pointer;
-  font-size:19px;
-  letter-spacing:1px;
+  font-size:20px;
   box-shadow:0 12px 30px rgba(177,18,38,0.35);
-  transition:0.35s;
-}
-
-.nav button:hover{
-  background:white;
-  color:var(--red);
-  transform:translateY(-6px) scale(1.05);
 }
 
 /* SECTIONS */
-section{
-  display:none;
-  padding:30px;
-  animation: fadeUp 0.8s ease;
-}
-section.active{
-  display:block;
+section{ display:none; padding:30px; }
+section.active{ display:block; }
+
+section h2{
+  text-align:center;
+  color:var(--red);
+  font-size:32px;
+  margin-bottom:25px;
 }
 
 /* SERVICES GRID */
 .services{
   display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:15px;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+  max-width:950px;
+  margin:auto;
 }
 
 .service{
-  background:var(--soft);
-  border-radius:20px;
-  padding:20px 10px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
+  background:white;
+  border-radius:28px;
+  padding:25px;
   cursor:pointer;
-  box-shadow:0 12px 30px rgba(177,18,38,0.18);
-  transition:0.4s ease;
-  text-align:center;
+  box-shadow:0 14px 35px rgba(177,18,38,0.18);
 }
-
-.service:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 22px 50px rgba(177,18,38,0.35);
-}
-
 .service h3{
-  margin:0;
+  margin:0 0 10px;
   color:var(--red);
-  font-size:16px;
 }
-
 .service p{
-  font-size:12px;
-  opacity:0.85;
+  margin:0;
+  font-size:14px;
+  line-height:1.6;
 }
 
 /* MODAL */
@@ -119,21 +111,16 @@ section.active{
   background:rgba(0,0,0,0.6);
   justify-content:center;
   align-items:center;
+  z-index:20;
 }
-
 .modal-content{
-  background:var(--white);
+  background:white;
   padding:30px;
   border-radius:30px;
-  max-width:500px;
+  max-width:450px;
+  width:90%;
   text-align:center;
-  animation: pop 0.5s ease;
 }
-
-.modal-content h2{
-  color:var(--red);
-}
-
 .modal-content button{
   width:100%;
   margin:10px 0;
@@ -141,47 +128,14 @@ section.active{
   border:none;
   border-radius:30px;
   cursor:pointer;
-  font-size:15px;
 }
-
 .paypal{ background:#0070ba;color:white; }
 .upi{ background:var(--red);color:white; }
 .close{ background:#eee;color:var(--text); }
 
-/* TEXT */
-section h2{
-  text-align:center;
-  color:var(--red);
-  font-size:32px;
-  margin-bottom:22px;
-}
-
-section p{
-  text-align:center;
-  max-width:720px;
-  margin:auto;
-  line-height:1.8;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:25px;
-  opacity:0.6;
-}
-
-/* ANIMATIONS */
-@keyframes fadeDown{
-  from{opacity:0;transform:translateY(-30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes pop{
-  from{transform:scale(0.7);opacity:0}
-  to{transform:scale(1);opacity:1}
+@media(max-width:768px){
+  .services{ grid-template-columns:1fr; }
+  header h1{ font-size:40px; }
 }
 </style>
 </head>
@@ -189,151 +143,329 @@ footer{
 <body>
 
 <header>
-  <h1>Chordinally Studio</h1>
+<h1>Chordinally Studio</h1>
+
+<div class="currency">
+<select onchange="setCurrency(this.value)">
+<option value="INR">🇮🇳 INR</option>
+<option value="USD">🇺🇸 USD</option>
+<option value="EUR">🇪🇺 EUR</option>
+<option value="GBP">🇬🇧 GBP</option>
+</select>
+</div>
 </header>
 
 <div class="nav">
-  <button onclick="showSection('services')">Our Services</button>
-  <button onclick="showSection('about')">Know About the Owner</button>
-  <button onclick="showSection('contact')">Contact</button>
+<button onclick="showSection('services')">Our Services</button>
+<button onclick="showSection('about')">Know About the Owner</button>
+<button onclick="showSection('contact')">Contact</button>
+<button onclick="showSection('terms')">Terms & Conditions</button>
 </div>
 
+<!-- SERVICES -->
 <section id="services" class="active">
 <div class="services">
 
-<div class="service" onclick="openModal('Songwriting','₹3,000')">
-<h3>Songwriting</h3>
-<p>Original lyrics crafted with emotion</p>
+<div class="service" onclick="openService('Songwriting','Original lyrics tailored to your vision.')">
+<h3>Songwriting</h3><p>Original lyrics tailored to your vision.</p>
 </div>
 
-<div class="service" onclick="openModal('Song Making','₹5,499')">
-<h3>Song Making</h3>
-<p>Complete song creation</p>
+<div class="service" onclick="openService('Song Making','End-to-end song creation.')">
+<h3>Song Making</h3><p>End-to-end song creation.</p>
 </div>
 
-<div class="service" onclick="openModal('Song Composing','₹5,000')">
-<h3>Song Composing</h3>
-<p>Custom melodies & composition</p>
+<div class="service" onclick="openService('Song Composing','Melody creation for your voice.')">
+<h3>Song Composing</h3><p>Melody creation for your voice.</p>
 </div>
 
-<div class="service" onclick="openModal('Dance Choreography','₹4,000')">
-<h3>Dance Choreography</h3>
-<p>Creative performance routines</p>
+<div class="service" onclick="openService('Beats','Custom original beats.')">
+<h3>Beats</h3><p>Custom original beats.</p>
 </div>
 
-<div class="service" onclick="openModal('Editing','Custom')">
-<h3>Editing</h3>
-<p>Custom creative edits</p>
-</div>
-
-<div class="service" onclick="openModal('Video Editing','Custom')">
-<h3>Video Editing</h3>
-<p>Professional video edits</p>
-</div>
-
-<div class="service" onclick="openModal('Edits Tutorial','₹3,000')">
-<h3>Edits Tutorial</h3>
-<p>Learn editing step-by-step</p>
-</div>
-
-<div class="service" onclick="openModal('Beats','₹4,500')">
-<h3>Beats</h3>
-<p>Original beats for artists</p>
-</div>
-
-<div class="service" onclick="openModal('Create Your Own Website','₹15,000')">
-<h3>Create Your Own Website</h3>
-<p>Custom website for your brand</p>
-</div>
-
-<div class="service" onclick="openModal('Create Your Banner','₹700')">
-<h3>Create Your Banner</h3>
-<p>Custom banner design for any purpose</p>
-</div>
-
-<div class="service" onclick="openModal('Learn to Write Lyrics','₹8,499')">
-<h3>Learn to Write Lyrics</h3>
-<p>Step-by-step guidance to create meaningful, catchy, and professional lyrics for any genre.</p>
+<div class="service" onclick="openService('Custom banner','Preview before full production.')">
+<h3>Custom banner</h3><p>create your own banner</p>
 </div>
 
 <div class="service" onclick="showSection('demos')">
-<h3>Song Available for Selling</h3>
-<p>Click to view all demos & prices</p>
+<h3>Songs Available for Selling</h3>
+<p>Ready-made original song demos.</p>
+</div>
+
+<div class="service" onclick="openService('Dance Choreography','Performance-ready choreography.')">
+<h3>Dance Choreography</h3><p>Performance-ready choreography.</p>
+</div>
+
+<div class="service" onclick="openService('Editing','Stylish creative edits.')">
+<h3>Editing</h3><p>Stylish creative edits.</p>
+</div>
+
+<div class="service" onclick="openService('Video Editing','Professional video editing.')">
+<h3>Video Editing</h3><p>Professional video editing.</p>
+</div>
+
+<div class="service" onclick="openService('Edits Tutorial','Learn editing from scratch.')">
+<h3>Edits Tutorial</h3><p>Learn editing from scratch.</p>
+</div>
+
+<div class="service" onclick="openService('Create Your Own Website','Personal brand website.')">
+<h3>Create Your Own Website</h3><p>Personal brand website.</p>
 </div>
 
 </div>
 </section>
 
+<!-- DEMOS -->
 <section id="demos">
-<h2>Demos Available</h2>
-<ul id="demos-list">
-<li>1. Demo Name Here</li>
-<li>2. Demo Name Here</li>
-<li>3. Demo Name Here</li>
-<li>4. Demo Name Here</li>
-<li>5. Demo Name Here</li>
-<li>6. Demo Name Here</li>
-<li>7. Demo Name Here</li>
-<li>8. Demo Name Here</li>
-<li>9. Demo Name Here</li>
-<li>10. Demo Name Here</li>
-</ul>
+<h2>Songs Available for Selling</h2>
+<p style="text-align:center;line-height:1.8;">
+Demo 01<br>Demo 02<br>Demo 03<br>Demo 04<br>Demo 05<br>
+Demo 06<br>Demo 07<br>Demo 08<br>Demo 09<br>Demo 10
+</p>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
 <h2>About the Owner</h2>
-<p>I’m Lly,from India with a deep love for creativity and self-expression. I’m an editor, songwriter, and all-around content creator, constantly experimenting with words, visuals, and music to bring ideas to life in my own unique way. I thrive on turning everyday moments into stories, whether it’s through crafting lyrics that resonate, editing videos that captivate, or exploring new artistic avenues.</p>
+<p style="max-width:800px;margin:auto;text-align:center;line-height:1.8;">
+Hi! I’m Lyy from India, a passionate creator and storyteller with a love for writing, editing, and bringing ideas to life. From crafting engaging content to exploring creative projects, I thrive on turning thoughts into tangible, impactful work. I’m enthusiastic, detail-oriented, and always eager to learn and experiment with new techniques. Whether it’s writing, designing, or building something unique, I approach every project with energy, professionalism, and a dash of creativity.
+Let’s create something amazing together!
+</p>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
 <h2>Contact</h2>
-<p>Instagram: @chordinally</p>
-<p>Email: officialchordinallystudio@gmail.com</p>
+<p style="text-align:center;">Instagram: @chordinally</p>
+<p style="text-align:center;">Email: officialchordinallystudio@gmail.com</p>
 </section>
 
+<!-- TERMS -->
+<section id="terms">
+<h2>Terms & Conditions</h2>
+<p style="max-width:900px;margin:auto;line-height:1.8;font-size:15px;">
+<strong>1. Mandatory Discussion Before Payment
+Clients must message me first to discuss project type, requirements, deadline, and price.  
+Any payment sent without confirmation will not be accepted.
+<br><br>
+<strong>2. Confirmation = Contract  
+Once the project details and price are confirmed in chat, that conversation acts as a digital agreement.  
+Any request outside the confirmed scope is considered extra work and may require additional payment.  
+  <br><br>
+<strong>3. Advance Payment Only  
+• 100% advance payment is required before starting any work.  
+• No work samples, drafts, or previews will be provided before payment.  
+• “Pay after delivery” or “trust me” requests will be declined.  
+  <br><br>
+<strong>4. Payment Method Rules  
+• Payments must be made only through the approved method shared by me.  
+• Clients must not send money through random links, third-party accounts, or “friend” payments without confirmation.  
+I am not responsible for payments sent to the wrong account.  
+  <br><br>
+<strong>5. Payment Proof Is Mandatory  
+After payment, the client must send: • A clear screenshot showing date, amount, and transaction status  
+Work will begin only after payment proof is verified.  
+Blurry, cropped, or edited screenshots may delay the project.  
+  <br><br>
+<strong>6. No Refund Policy  
+Once work has started, NO refunds will be issued under any circumstances, including: • Change of mind  
+• “I don’t like it anymore”  
+• Client disappearing mid-project  
+• Delays caused by the client  
+• Personal emergencies on the client’s side  
+If work has not started and I cancel the project myself, a fair refund may be considered.  
+  <br><br>
+<strong>7. Revision Policy  
+• Only pre-agreed revisions are included.  
+• Revisions do not mean a full redo.  
+• Style changes after approval = new project or extra charge.  
+Excessive revision requests, nitpicking beyond reason, or changing instructions repeatedly will not be entertained.  
+  <br><br>
+<strong>8. Delivery & Deadlines  
+• Delivery timelines are estimates, not guarantees.  
+• Deadlines depend on project complexity and response time.  
+If the client delays replies, feedback, or file submissions, the deadline will automatically shift.  
+I am not responsible for “urgent last-minute” stress caused by the client.  
+  <br><br>
+<strong>9. Client Disappearance Clause  
+If a client goes inactive for 48–72 hours without notice: • The project will be put on hold  
+• Delivery may be delayed  
+• No refunds will be issued  
+After 7 days of no response, the project may be closed permanently.  
+  <br><br>
+<strong>10. Quality & Expectations  
+• Results depend on the quality of files provided.  
+• Low-resolution, blurry, or compressed media will affect output quality.  
+I do not guarantee “viral results,” engagement, or platform growth.  
+  <br><br>
+<strong>11. Respect & Professional Conduct  
+Harassment, pressure tactics, rude language, manipulation, or threats will result in: • Immediate project cancellation  
+• No refund  
+Professional communication is mandatory.  <br><br>
+<strong>12. Right to Refuse or Cancel Work  
+I reserve the right to refuse or cancel any project that: • Involves plagiarism  
+• Uses stolen content  
+• Is unethical, inappropriate, or illegal  
+• Makes me uncomfortable  
+If canceled before work starts, payment handling will be fair.  
+  <br><br>
+<strong>13. No File Hoarding / Misuse  
+Final files are delivered only after full payment.  
+Raw files, project files, or editable files are not included unless agreed beforehand.  
+  <br><br>
+<strong>14. Portfolio & Credit  
+Unless discussed otherwise: • I may display the work in my portfolio or social media  
+• Credits are appreciated but not mandatory
+<br><br>
+<strong>15. Agreement Clause
+By messaging me, booking my services, or making a payment, the client confirms they have read, understood, and agreed to these Terms & Conditions.
+<br><br>
+</p>
+</section>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
-<h2 id="modalTitle"></h2>
-<p id="modalDesc"></p>
-<p id="modalPrice"></p>
+<h2 id="mTitle"></h2>
+<p id="mDesc"></p>
+<p id="mPrice"></p>
 <button class="paypal" onclick="payPaypal()">Pay via PayPal</button>
 <button class="upi" onclick="payUpi()">Pay via UPI</button>
 <button class="close" onclick="closeModal()">Close</button>
 </div>
 </div>
 
-<footer>© 2026 Chordinally Studio. All Rights Reserved.</footer>
+<!-- SERVICE DETAILS SOURCE -->
+<div id="serviceDetails" style="display:none;">
 
+<div data-service="Songwriting">
+This service includes writing original lyrics from scratch based on your concept, emotions, theme, language preference, and story.
+You can request romantic, sad, dark, motivational, pop, K-pop inspired, or any custom vibe.
+Lyrics are completely original and written specifically for you.
+Revisions are allowed until satisfaction (within reason).
+</div>
+
+<div data-service="Song Making">
+Complete song creation from zero to structure.
+This includes lyrics arrangement, song flow, hooks, verses, and overall creative direction.
+Ideal for artists who want a fully planned song idea before recording.
+Does not include final studio mastering unless discussed.
+</div>
+
+<div data-service="Song Composing">
+Custom melody composition designed to fit your vocal range and genre.
+Includes chord progressions, melody line, and emotional flow.
+Perfect if you already have lyrics or want a melody-first approach.
+Composition is original and exclusive to you.
+</div>
+
+<div data-service="Beats">
+Original beats created for personal or commercial use.
+You can choose genre, mood, tempo, and reference style.
+No recycled or copyright beats are used.
+Licensing terms will be discussed before delivery.
+</div>
+
+<div data-service="Song Demo Version">
+A rough demo version of your song to understand how the final product will sound.
+Includes basic vocals or instrumental arrangement.
+Best for previewing structure and vibe before full production.
+Demo quality is intentional and not final-mastered.
+</div>
+
+<div data-service="Dance Choreography">
+Custom choreography created based on your song, skill level, and performance needs.
+Suitable for stage performances, reels, auditions, or practice videos.
+Moves are designed to look clean, expressive, and camera-friendly.
+</div>
+
+<div data-service="Editing">
+Creative edits including transitions, sync with music, effects, and visual flow.
+Ideal for Instagram edits, reels, or aesthetic videos.
+</div>
+
+<div data-service="Video Editing">
+Professional video editing with clean cuts, pacing, storytelling, and structure.
+Suitable for YouTube videos, music videos, or long-form content.
+</div>
+
+<div data-service="Edits Tutorial">
+Personalized editing tutorial teaching you how to edit step-by-step.
+Covers apps/software, transitions, timing, and effects.
+</div>
+
+<div data-service="Create Your Own Website">
+Custom website designed according to your brand, purpose, and style.
+Includes layout design, responsiveness, and basic interactivity.
+</div>
+
+</div>
+
+<!-- CURRENCY & MODAL SCRIPT -->
 <script>
-const descriptions={
-"Songwriting":"I write original lyrics of all genre that tell stories, express emotions, and connect with listeners.",
-"Song Making":"I create full songs from scratch, combining melodies, lyrics, and production.",
-"Song Composing":"I compose melodies and harmonies that bring your musical ideas to life.",
-"Editing":"I provide professional editing services for content of all kinds.",
-"Video Editing":"I edit videos with style and precision.",
-"Edits Tutorial":"I create step-by-step tutorials to help you learn video editing skills.",
-"Beats":"I produce original beats for artists.",
-"Create Your Own Website":"I design and build personalized websites.",
-"Dance Choreography":"I design creative dance routines.",
-"Create Your Banner":"I design eye-catching banners.",
-"Learn to Write Lyrics":"This course helps you write lyrics like a pro."
+// Current selected currency
+let currency = "INR";
+
+// Exchange rates relative to INR
+const rates = {
+  "INR": 1,
+  "USD": 0.012,
+  "EUR": 0.011,
+  "GBP": 0.0097
 };
 
+// Original prices in INR
+const servicePrices = {
+  "Songwriting": 3000,
+  "Song Making": 5499,
+  "Song Composing": 5000,
+  "Beats": 4500,
+  "Song Demo Version": 0,
+  "Dance Choreography": 4000,
+  "Editing": 0,
+  "Video Editing": 0,
+  "Edits Tutorial": 3000,
+  "Create Your Own Website": 15000,
+  "Creative Consulting": 0
+};
+
+// Set selected currency from dropdown
+function setCurrency(c) {
+  currency = c;
+}
+
+// Show a section
 function showSection(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-function openModal(title,price){
-  modalTitle.innerText=title;
-  modalDesc.innerText=descriptions[title];
-  modalPrice.innerText="Price: "+price;
-  modal.style.display="flex";
+// Open the modal for a service
+function openService(name, desc) {
+  const price = servicePrices[name];
+  let modalPrice;
+  
+  if(price > 0){
+    modalPrice = (price * rates[currency]).toFixed(2) + " " + currency;
+  } else {
+    modalPrice = "Contact";
+  }
+
+  document.getElementById("mTitle").innerText = name;
+  document.getElementById("mDesc").innerText = desc;
+  document.getElementById("mPrice").innerText = price > 0 ? "Price: " + modalPrice : "Price: Contact";
+
+  document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal(){ modal.style.display="none"; }
-function payPaypal(){ window.open("https://www.paypal.me/hinahaseen","_blank"); }
-function payUpi(){ window.location.href="upi://pay?pa=7355667846@upi"; }
+// Close the modal
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+// Dummy payment functions
+function payPaypal() { window.open("https://www.paypal.me/hinahaseen", "_blank"); }
+function payUpi() { window.location.href = "upi://pay?pa=7355667846@upi"; }
+
 </script>
 
 </body>
